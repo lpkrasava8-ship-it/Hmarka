@@ -50,3 +50,211 @@
             opacity: 0;
             will-change: transform, opacity;
         }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.8) rotate(-10deg); opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(20deg); opacity: 0; }
+        }
+
+        /* --- ГОЛОВНА ЛИСТІВКА (GLASSMORPHISM) --- */
+        .glass-card {
+            /* Ефект дорогого матового скла */
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 50px 45px;
+            max-width: 650px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 
+                0 25px 45px rgba(216, 27, 96, 0.1), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            z-index: 10;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        /* Іконка зверху */
+        .glass-card::before {
+            content: '☁️';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- ТЕКСТ --- */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            color: var(--primary);
+            margin: 15px 0 5px 0;
+            font-weight: 600;
+        }
+
+        .highlight {
+            font-family: 'Caveat', cursive;
+            font-size: 3.8rem;
+            color: var(--secondary);
+            display: block;
+            margin-top: -15px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(255, 128, 171, 0.3);
+            transform: rotate(-2deg);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ffd1dc;
+            color: #c2185b;
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.05);
+        }
+
+        .prose {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 40px;
+            text-align: justify;
+            font-weight: 400;
+        }
+
+        /* --- ВІДЕО-БЛОК --- */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.2);
+            border: 4px solid #fff;
+            transition: all 0.4s ease;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(216, 27, 96, 0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+
+        /* --- ПІДПИС --- */
+        .signature {
+            margin-top: 40px;
+            font-family: 'Caveat', cursive;
+            font-size: 2.8rem;
+            color: var(--primary);
+        }
+
+        .date {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: #9e9e9e;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        /* --- АДАПТИВНІСТЬ --- */
+        @media (max-width: 600px) {
+            .glass-card { padding: 45px 25px; border-radius: 20px; width: 92%; }
+            h1 { font-size: 2.2rem; }
+            .highlight { font-size: 3rem; }
+            .prose { font-size: 1.05rem; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles"></div>
+
+    <main class="glass-card">
+        <h1>Зі святом,</h1>
+        <span class="highlight">моя Хмарко</span>
+        
+        <div class="badge">8 березня • 10 місяців разом</div>
+        
+        <div class="prose">
+            Кохана, за цей час ти стала для мене чимось значно більшим, ніж я міг собі уявити. Іноді я намагаюся підібрати правильні слова, щоб описати всю ту ніжність, яку відчуваю до тебе, і сказати, наскільки ти красива. Але слова часто здаються занадто простими.<br><br>
+            Коли я побачив цей момент із фільму, він торкнувся моєї душі. Це саме те, що я хотів би сказати тобі. Просто послухай...
+        </div>
+
+        <div class="video-container">
+            <iframe 
+                src="https://drive.google.com/file/d/1AmbbIcV5MX-hZmG2_pyCq6MyV70bh2s9/preview" 
+                allow="autoplay; fullscreen"
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="signature">Безмежно твій ❤️</div>
+        <div class="date">8 березня 2026 року</div>
+    </main>
+
+    <script>
+        // Створюємо хмаринки та сердечка
+        const particlesContainer = document.getElementById('particles');
+        const symbols = ['☁️', '🤍', '🌸', '✨', '☁️', '🩷'];
+
+        function createParticle() {
+            const el = document.createElement('div');
+            el.className = 'particle';
+            el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            // Випадкова позиція
+            el.style.left = Math.random() * 100 + 'vw';
+            
+            // Глибина та розмір
+            const isNear = Math.random() > 0.6;
+            if (isNear) {
+                el.style.fontSize = Math.random() * 25 + 25 + 'px';
+                el.style.filter = `blur(${Math.random() * 2}px)`;
+                el.style.zIndex = 20;
+            } else {
+                el.style.fontSize = Math.random() * 15 + 10 + 'px';
+                el.style.zIndex = 0;
+            }
+
+            // Тривалість польоту (повільніше для більшої плавності)
+            const speed = Math.random() * 7 + 8; // від 8 до 15 секунд
+            el.style.animationDuration = speed + 's';
+            
+            particlesContainer.appendChild(el);
+            
+            // Видалення
+            setTimeout(() => el.remove(), speed * 1000);
+        }
+
+        // Запускаємо генератор
+        setInterval(createParticle, 400);
+
+        // Додаємо кілька одразу
+        for(let i = 0; i < 12; i++) {
+            setTimeout(createParticle, Math.random() * 2000);
+        }
+    </script>
+
+</body>
+</html>
