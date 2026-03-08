@@ -4,203 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моєї Хмарки ☁️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* Основні кольори: кремовий, попелясто-рожевий, теплий сірий */
-        :root {
-            --bg-color: #f8f1e9;
-            --card-bg: #fffdfb;
-            --accent: #e0a3a3;
-            --text: #5a5a5a;
-            --letter-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        * {
+            box-sizing: border-box;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Alegreya', 'Georgia', serif; /* Елегантний шрифт */
-            background-color: var(--bg-color);
-            background-image: url('https://www.transparenttextures.com/patterns/old-map.png'); /* Текстура старого паперу */
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: var(--text);
             overflow-x: hidden;
-        }
-
-        /* Конверт/Листівка */
-        .letter-card {
-            background: var(--card-bg);
-            max-width: 700px;
-            width: 90%;
-            padding: 50px;
-            border-radius: 2px; /* Майже гострі кути, як у листа */
-            box-shadow: var(--letter-shadow);
             position: relative;
-            border: 1px solid #eae0d5;
-            z-index: 10;
-            transform: rotate(-1deg); /* Легкий нахил */
         }
 
-        /* Декор кутів */
-        .letter-card::before {
-            content: '';
+        /* Анімація зірок на фоні */
+        .stars {
             position: absolute;
-            top: 10px; right: 10px; bottom: 10px; left: 10px;
-            border: 1px solid #f3e9dc;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Напівпрозора "скляна" картка */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 650px;
+            width: 90%;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--accent);
-            font-size: 2.8rem;
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #ffb7b2;
             margin-top: 0;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(255, 183, 178, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #e2e2e2;
             margin-bottom: 30px;
-            font-weight: 400;
-            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .message {
-            font-size: 1.2rem;
-            line-height: 1.9;
-            margin-bottom: 40px;
-            text-align: justify;
-            position: relative;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #f8f8f8;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
-        /* Перша літера збільшена */
-        .message p:first-child::first-letter {
-            font-size: 3.5rem;
-            float: left;
-            color: var(--accent);
-            margin-right: 10px;
-            line-height: 1;
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Відео-контейнер для Google Диску */
-        .video-frame {
+        /* Рамка для відео */
+        .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
+            border-radius: 15px;
             overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 5px solid white; /* Ефект фотокартки */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: #000;
         }
 
-        .video-frame iframe {
+        .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             border: none;
         }
 
-        .seal {
-            position: absolute;
-            bottom: -30px;
-            right: 40px;
-            width: 80px;
-            height: 80px;
-            background-color: #b35656;
-            border-radius: 50%;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.2), 3px 5px 10px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #f8e8e8;
+        .footer-text {
+            margin-top: 30px;
+            font-family: 'Caveat', cursive;
             font-size: 2rem;
-            font-family: serif;
-            transform: rotate(15deg);
-            border: 2px solid #a14a4a;
+            color: #ffb7b2;
         }
 
-        /* Фон: пелюстки сакури, що падають */
-        .petals {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* Анімовані хмаринки */
+        .cloud {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 60px;
+            user-select: none;
             pointer-events: none;
+            animation: float-cloud linear infinite;
             z-index: 1;
         }
 
-        .petal {
-            position: absolute;
-            background-color: #ffdbdb;
-            border-radius: 150% 0 150% 0;
-            opacity: 0.7;
-            animation: petal-fall linear infinite;
+        @keyframes float-cloud {
+            0% { transform: translateX(110vw); }
+            100% { transform: translateX(-20vw); }
         }
 
-        @keyframes petal-fall {
-            0% { transform: translateY(-10vh) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(400deg); }
-        }
-
-        /* Адаптація для мобільних */
         @media (max-width: 600px) {
-            .letter-card { padding: 25px; }
-            h1 { font-size: 2rem; }
+            .glass-card { padding: 25px; }
+            h1 { font-size: 2.8rem; }
             .message { font-size: 1rem; }
-            .seal { width: 60px; height: 60px; right: 20px; font-size: 1.5rem; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital@0;1&family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="letter-card">
-    <h1>Моїй коханій Хмарці ☁️</h1>
+<div class="stars" id="stars"></div>
+
+<div class="glass-card">
+    <h1>Моїй любій Хмарці ☁️</h1>
+    <div class="subtitle">8 березня • 10 місяців разом</div>
     
     <div class="message">
-        <p>З 8 березня! Ці 10 місяців, що ми разом, стали для мене неймовірною подорожжю. Ти знаєш, я довго думав, як висловити все те, що всередині. Іноді мені важко підібрати слова, які б справді відповідали твоїй красі та моїм почуттям до тебе.</p>
-        
-        <p>Коли я дивився цей фільм, цей момент відгукнувся мені найбільше. Це саме те, що я хотів би тобі сказати. Послухай...</p>
+        За цей час ти стала для мене цілим світом. Знаєш, я не завжди вмію підібрати правильні слова, щоб описати, наскільки ти красива і як сильно я тебе ціную. Але коли я побачив цей момент у "Зеленій книзі", я зрозумів — це саме те, що відчуває моє серце.
     </div>
 
-    <div class="video-frame">
+    <div class="video-wrapper">
         <iframe 
-            src="https://drive.google.com/file/d/ХХХ_ID_ТВОГО_ФАЙЛУ_З_DRIVE_ХХХ/preview" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            src="https://drive.google.com/file/d/ВСТАВ_ID_СЮДИ/preview" 
+            allow="autoplay" 
             allowfullscreen>
         </iframe>
     </div>
 
-    <div class="seal">
-        (Т) ❤️ </div>
+    <div class="footer-text">
+        Безмежно твій ❤️
+    </div>
 </div>
 
-<div class="petals" id="petals"></div>
-
 <script>
-    // Анімація пелюсток, що падають
-    function createPetal() {
-        const petalsContainer = document.getElementById('petals');
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-        
-        // Випадкові розміри та позиція
-        const size = Math.random() * 10 + 10 + 'px';
-        petal.style.width = size;
-        petal.style.height = size;
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = Math.random() * 5 + 5 + 's'; // 5-10 секунд
-        petal.style.opacity = Math.random() * 0.5 + 0.3;
-
-        petalsContainer.appendChild(petal);
-        
-        // Видалення пелюстки після падіння
-        setTimeout(() => { petal.remove(); }, 10000);
-    }
-
-    // Створювати нову пелюстку кожні 300мс
-    setInterval(createPetal, 300);
-</script>
-
-</body>
-</html>
+    // Генерація зірок
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+        let star = document.createElement('div');
+        star.className = 'star';
+        star
