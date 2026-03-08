@@ -4,73 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моєї Хмарки ☁️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        /* =========================================
+           ОСНОВНІ НАЛАШТУВАННЯ ТА ЗМІННІ КОЛЬОРІВ
+           ========================================= */
+        :root {
+            --bg-top: #ffdde1;    /* Ніжно-рожевий */
+            --bg-bottom: #ee9ca7; /* Теплий персиковий */
+            --text-dark: #5a4b4b;
+            --heart-color: #ff4d6d;
+            --envelope-bg: #fffbfb;
+            --envelope-flap: #fdf1f1;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            /* Живий градієнт, що переливається */
-            background: linear-gradient(-45deg, #1a0b2e, #4b1d52, #962f5e, #c96567);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: #fff;
-            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden; /* Ховаємо скрол */
             position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Контейнер для магічних ефектів на фоні */
-        #magic-canvas {
+        /* =========================================
+           БАГАТОШАРОВИЙ ФОН: ХМАРИНКИ
+           ========================================= */
+        .clouds-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
+            z-index: 0;
+            opacity: 0.6;
         }
 
-        /* Ефект преміального скла для центральної картки */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px;
-            padding: 50px 40px;
-            max-width: 700px;
-            width: 92%;
-            text-align: center;
+        .cloud-svg {
+            position: absolute;
+            fill: #ffffff;
+            animation: floatClouds linear infinite;
+        }
+
+        /* Різні розміри та швидкість хмаринок */
+        .cloud-1 { top: 10%; left: -20%; width: 150px; animation-duration: 40s; opacity: 0.8; }
+        .cloud-2 { top: 30%; left: -20%; width: 250px; animation-duration: 60s; opacity: 0.5; }
+        .cloud-3 { top: 60%; left: -20%; width: 180px; animation-duration: 45s; opacity: 0.7; }
+        .cloud-4 { top: 80%; left: -20%; width: 300px; animation-duration: 75s; opacity: 0.4; }
+
+        @keyframes floatClouds {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(120vw); }
+        }
+
+        /* =========================================
+           КОНВЕРТ ТА ЛИСТІВКА (ІНТЕРАКТИВ)
+           ========================================= */
+        .wrapper {
+            position: relative;
             z-index: 10;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
-            
-            /* Анімація плавної появи */
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-            animation: floatUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            animation-delay: 0.5s;
+            width: 100%;
+            max-width: 700px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
         }
 
-        @keyframes floatUp {
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        .envelope {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background: var(--envelope-bg);
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.4s ease;
         }
 
-        /* М'яке світіння навколо картки */
-        .glass-panel::before {
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Передня частина конверта */
+        .envelope::before {
             content: '';
             position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom:
+            bottom: 0; left: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-bottom: 150px solid #f9e9e9;
+            z-index: 3;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* Верхній клапан конверта */
+        .flap {
+            position: absolute;
+            top: 0; left: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-top: 150px solid var(--envelope-flap);
+            z-index: 4;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 10px 10px 0 0;
+        }
+
+        /* Напис на закритому конверті */
+        .click-text {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--heart-color);
+            pointer-events: none;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        /* Сам лист всередині */
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            background: #fff;
+            border-radius: 8px;
+            z-index: 2;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), height 1s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 3
