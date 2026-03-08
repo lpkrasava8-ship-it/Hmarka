@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моєї Хмарки ☁️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            /* Живий градієнт, що переливається */
+            background: linear-gradient(-45deg, #1a0b2e, #4b1d52, #962f5e, #c96567);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #fff;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Cormorant Garamond', serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,143 +27,50 @@
             position: relative;
         }
 
-        /* Анімація зірок на фоні */
-        .stars {
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Контейнер для магічних ефектів на фоні */
+        #magic-canvas {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.2; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* Напівпрозора "скляна" картка */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 650px;
-            width: 90%;
+        /* Ефект преміального скла для центральної картки */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 700px;
+            width: 92%;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            
+            /* Анімація плавної появи */
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            animation: floatUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.5s;
         }
 
-        h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
-            color: #ffb7b2;
-            margin-top: 0;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(255, 183, 178, 0.3);
+        @keyframes floatUp {
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .subtitle {
-            font-size: 1rem;
-            color: #e2e2e2;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .message {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            color: #f8f8f8;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        /* Рамка для відео */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: #000;
-        }
-
-        .video-wrapper iframe {
+        /* М'яке світіння навколо картки */
+        .glass-panel::before {
+            content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        .footer-text {
-            margin-top: 30px;
-            font-family: 'Caveat', cursive;
-            font-size: 2rem;
-            color: #ffb7b2;
-        }
-
-        /* Анімовані хмаринки */
-        .cloud {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 60px;
-            user-select: none;
-            pointer-events: none;
-            animation: float-cloud linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes float-cloud {
-            0% { transform: translateX(110vw); }
-            100% { transform: translateX(-20vw); }
-        }
-
-        @media (max-width: 600px) {
-            .glass-card { padding: 25px; }
-            h1 { font-size: 2.8rem; }
-            .message { font-size: 1rem; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="stars" id="stars"></div>
-
-<div class="glass-card">
-    <h1>Моїй любій Хмарці ☁️</h1>
-    <div class="subtitle">8 березня • 10 місяців разом</div>
-    
-    <div class="message">
-        За цей час ти стала для мене цілим світом. Знаєш, я не завжди вмію підібрати правильні слова, щоб описати, наскільки ти красива і як сильно я тебе ціную. Але коли я побачив цей момент у "Зеленій книзі", я зрозумів — це саме те, що відчуває моє серце.
-    </div>
-
-    <div class="video-wrapper">
-        <iframe 
-            src="https://drive.google.com/file/d/ВСТАВ_ID_СЮДИ/preview" 
-            allow="autoplay" 
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <div class="footer-text">
-        Безмежно твій ❤️
-    </div>
-</div>
-
-<script>
-    // Генерація зірок
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 100; i++) {
-        let star = document.createElement('div');
-        star.className = 'star';
-        star
+            top: -2px; left: -2px; right: -2px; bottom:
