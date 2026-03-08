@@ -7,21 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ОСНОВНІ НАЛАШТУВАННЯ --- */
+        /* --- ОСНОВНА ПАЛІТРА ТА ФОН --- */
         :root {
             --primary: #d81b60;
             --secondary: #ff80ab;
-            --bg-light: #fff5f8;
             --text-main: #4a3b3b;
-            --text-muted: #8b7373;
         }
 
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #fce4ec 0%, #fffbf0 50%, #ffe4e1 100%);
-            background-size: 200% 200%;
-            animation: gradientShift 15s ease infinite;
+            /* Ніжний рухомий фон */
+            background: linear-gradient(135deg, #fce4ec, #fffbf0, #ffe4e1, #fff0f5);
+            background-size: 300% 300%;
+            animation: gradientShift 18s ease infinite;
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -37,82 +36,17 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- ФОНОВІ ЕФЕКТИ (БОКЕ ТА ЧАСТИНКИ) --- */
-        #particles-container {
+        /* --- ЧАСТИНКИ ТА ХМАРИНКИ --- */
+        #particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
-            overflow: hidden;
         }
 
         .particle {
             position: absolute;
             animation: floatUp linear forwards;
-            opacity: 0.8;
-            filter: drop-shadow(0 2px 4px rgba(255, 128, 171, 0.3));
+            opacity: 0;
+            will-change: transform, opacity;
         }
-
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) scale(0.8) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2) rotate(45deg); opacity: 0; }
-        }
-
-        /* --- ГОЛОВНА ЛИСТІВКА --- */
-        .premium-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 50px 45px;
-            max-width: 650px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 
-                0 20px 50px rgba(216, 27, 96, 0.08), 
-                0 0 0 10px rgba(255, 255, 255, 0.4) inset,
-                0 0 20px rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 204, 213, 0.5);
-            z-index: 10;
-            margin: 40px 0;
-            position: relative;
-        }
-
-        /* Декоративний елемент зверху */
-        .premium-card::before {
-            content: '☁️';
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #fff, #fce4ec);
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.15);
-            border: 2px solid #fff;
-        }
-
-        /* --- ТИПОГРАФІКА --- */
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: var(--primary);
-            margin: 10px 0 5px 0;
-            font-weight: 600;
-        }
-
-        .highlight {
-            font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
-            color: var(--secondary);
-            display: block;
-            margin-top: -10px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(255, 128, 171, 0.2);
-        }
-
-        .milestone-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #ffe4e1, #fff);
-            border: 1px solid #ffb
