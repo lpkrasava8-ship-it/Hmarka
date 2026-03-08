@@ -5,62 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моєї Хмарки ☁️</title>
     <style>
+        /* Основні кольори: кремовий, попелясто-рожевий, теплий сірий */
         :root {
-            --bg-color: #fdf2f2;
-            --accent-color: #d63384;
-            --text-color: #4a4a4a;
+            --bg-color: #f8f1e9;
+            --card-bg: #fffdfb;
+            --accent: #e0a3a3;
+            --text: #5a5a5a;
+            --letter-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Georgia', serif; /* Більш романтичний, класичний шрифт */
+            font-family: 'Alegreya', 'Georgia', serif; /* Елегантний шрифт */
             background-color: var(--bg-color);
+            background-image: url('https://www.transparenttextures.com/patterns/old-map.png'); /* Текстура старого паперу */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: var(--text-color);
+            color: var(--text);
+            overflow-x: hidden;
         }
 
-        .card {
-            background: white;
-            max-width: 650px;
+        /* Конверт/Листівка */
+        .letter-card {
+            background: var(--card-bg);
+            max-width: 700px;
             width: 90%;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-            border: 1px solid #fce4ec;
-            margin: 20px 0;
+            padding: 50px;
+            border-radius: 2px; /* Майже гострі кути, як у листа */
+            box-shadow: var(--letter-shadow);
+            position: relative;
+            border: 1px solid #eae0d5;
+            z-index: 10;
+            transform: rotate(-1deg); /* Легкий нахил */
+        }
+
+        /* Декор кутів */
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: 10px; right: 10px; bottom: 10px; left: 10px;
+            border: 1px solid #f3e9dc;
+            pointer-events: none;
         }
 
         h1 {
-            color: var(--accent-color);
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            font-weight: normal;
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            font-size: 2.8rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: 400;
+            text-align: center;
         }
 
         .message {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 40px;
+            text-align: justify;
+            position: relative;
         }
 
-        /* Контейнер для відео */
-        .video-container {
+        /* Перша літера збільшена */
+        .message p:first-child::first-letter {
+            font-size: 3.5rem;
+            float: left;
+            color: var(--accent);
+            margin-right: 10px;
+            line-height: 1;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Відео-контейнер для Google Диску */
+        .video-frame {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 */
             height: 0;
             overflow: hidden;
-            border-radius: 12px;
-            background: #000;
+            border-radius: 4px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 5px solid white; /* Ефект фотокартки */
         }
 
-        .video-container iframe {
+        .video-frame iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -69,68 +99,107 @@
             border: none;
         }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #a1a1a1;
+        .seal {
+            position: absolute;
+            bottom: -30px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background-color: #b35656;
+            border-radius: 50%;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.2), 3px 5px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f8e8e8;
+            font-size: 2rem;
+            font-family: serif;
+            transform: rotate(15deg);
+            border: 2px solid #a14a4a;
         }
 
-        /* Декор: легкі сердечка на фоні */
-        .floating-heart {
+        /* Фон: пелюстки сакури, що падають */
+        .petals {
             position: fixed;
-            color: #ffc1e3;
-            user-select: none;
-            z-index: -1;
-            animation: float 10s infinite linear;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        .petal {
+            position: absolute;
+            background-color: #ffdbdb;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            animation: petal-fall linear infinite;
+        }
+
+        @keyframes petal-fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(400deg); }
+        }
+
+        /* Адаптація для мобільних */
+        @media (max-width: 600px) {
+            .letter-card { padding: 25px; }
+            h1 { font-size: 2rem; }
+            .message { font-size: 1rem; }
+            .seal { width: 60px; height: 60px; right: 20px; font-size: 1.5rem; }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital@0;1&family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="card">
-    <h1>Для моєї Хмарки ☁️</h1>
+<div class="letter-card">
+    <h1>Моїй коханій Хмарці ☁️</h1>
     
     <div class="message">
-        <p>З 8 березня, рідна! Ми разом вже трохи більше 10 місяців, і кожен цей день для мене особливий. 
-        Ти знаєш, я не завжди можу знайти такі красиві слова, як у фільмах...</p>
+        <p>З 8 березня! Ці 10 місяців, що ми разом, стали для мене неймовірною подорожжю. Ти знаєш, я довго думав, як висловити все те, що всередині. Іноді мені важко підібрати слова, які б справді відповідали твоїй красі та моїм почуттям до тебе.</p>
         
-        <p>Але цей момент дуже нагадує мені те, що я відчуваю до тебе. Просто послухай.</p>
+        <p>Коли я дивився цей фільм, цей момент відгукнувся мені найбільше. Це саме те, що я хотів би тобі сказати. Послухай...</p>
     </div>
 
-    <div class="video-container">
+    <div class="video-frame">
         <iframe 
-            src="https://www.youtube.com/embed/5Yh3tR8yG3k?start=4190&rel=0&modestbranding=1" 
-            title="Green Book Scene"
+            src="https://drive.google.com/file/d/ХХХ_ID_ТВОГО_ФАЙЛУ_З_DRIVE_ХХХ/preview" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
         </iframe>
     </div>
 
-    <div class="footer">
-        Твій (Твоє ім'я) ❤️
-    </div>
+    <div class="seal">
+        (Т) ❤️ </div>
 </div>
 
+<div class="petals" id="petals"></div>
+
 <script>
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.className = 'floating-heart';
-        heart.innerHTML = '❤';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-        document.body.appendChild(heart);
+    // Анімація пелюсток, що падають
+    function createPetal() {
+        const petalsContainer = document.getElementById('petals');
+        const petal = document.createElement('div');
+        petal.className = 'petal';
         
-        setTimeout(() => { heart.remove(); }, 10000);
+        // Випадкові розміри та позиція
+        const size = Math.random() * 10 + 10 + 'px';
+        petal.style.width = size;
+        petal.style.height = size;
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = Math.random() * 5 + 5 + 's'; // 5-10 секунд
+        petal.style.opacity = Math.random() * 0.5 + 0.3;
+
+        petalsContainer.appendChild(petal);
+        
+        // Видалення пелюстки після падіння
+        setTimeout(() => { petal.remove(); }, 10000);
     }
-    setInterval(createHeart, 500);
+
+    // Створювати нову пелюстку кожні 300мс
+    setInterval(createPetal, 300);
 </script>
 
 </body>
