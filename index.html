@@ -4,161 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моєї Хмарки ☁️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* Основні кольори: кремовий, рожевий, білий */
+        /* --- ОСНОВНІ НАЛАШТУВАННЯ --- */
+        :root {
+            --primary: #d81b60;
+            --secondary: #ff80ab;
+            --bg-light: #fff5f8;
+            --text-main: #4a3b3b;
+            --text-muted: #8b7373;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #ffe4e1, #fffdd0, #fff0f5); /* Рожево-кремовий градієнт */
-            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #fffbf0 50%, #ffe4e1 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            color: #5d4037;
+            position: relative;
         }
 
-        /* Контейнер для сердечок на фоні (z-index: 1, щоб бути позаду тексту) */
-        .bg-elements {
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- ФОНОВІ ЕФЕКТИ (БОКЕ ТА ЧАСТИНКИ) --- */
+        #particles-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
-        }
-
-        /* Головна листівка (z-index: 10, щоб завжди бути спереду і клікабельною) */
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 3px solid #fff;
-            border-radius: 25px;
-            padding: 40px;
-            max-width: 600px;
-            width: 85%;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.5); /* М'яка рожева тінь */
-            z-index: 10;
-            margin: 20px 0;
-        }
-
-        h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.8rem;
-            color: #d81b60; /* Яскраво-рожевий */
-            margin: 0 0 5px 0;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #ad1457;
-            margin-bottom: 25px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .text {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            margin-bottom: 30px;
-            color: #4e342e;
-        }
-
-        /* Надійна рамка для відео з Google Drive */
-        .video-box {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* Ідеальна пропорція 16:9 */
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 5px solid #fff;
-            background: #fce4ec; /* Світло-рожева заглушка, поки вантажиться відео */
         }
 
-        .video-box iframe {
+        .particle {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        .signature {
-            margin-top: 30px;
-            font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
-            color: #d81b60;
-        }
-
-        /* Анімація сердечок, що летять вгору */
-        .heart {
-            position: absolute;
-            color: #ff80ab;
             animation: floatUp linear forwards;
-            opacity: 0.7;
+            opacity: 0.8;
+            filter: drop-shadow(0 2px 4px rgba(255, 128, 171, 0.3));
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(105vh) scale(0.8) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.3) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(110vh) scale(0.8) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(45deg); opacity: 0; }
         }
 
-        /* Адаптація під мобільні телефони */
-        @media (max-width: 600px) {
-            .card { padding: 30px 20px; width: 90%; }
-            h1 { font-size: 3rem; }
-            .text { font-size: 1.05rem; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="bg-elements" id="bg"></div>
-
-    <div class="card">
-        <h1>Для Хмарки ☁️</h1>
-        <div class="subtitle">8 березня • 10 місяців разом</div>
-        
-        <div class="text">
-            Кохана, за цей час ти стала для мене дуже особливою. Іноді мені важко підібрати правильні слова, щоб описати всю ніжність, яку я до тебе відчуваю, і сказати, яка ти красива. Але коли я побачив цей момент із фільму, я зрозумів — це саме те, що в мене на серці. Послухай...
-        </div>
-
-        <div class="video-box">
-            <iframe 
-                src="https://drive.google.com/file/d/ВСТАВ_СВІЙ_ID_СЮДИ/preview" 
-                allow="autoplay; fullscreen">
-            </iframe>
-        </div>
-
-        <div class="signature">Твій назавжди ❤️</div>
-    </div>
-
-    <script>
-        function createHeart() {
-            const bg = document.getElementById('bg');
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤';
-            
-            // Випадкова позиція по горизонталі
-            heart.style.left = Math.random() * 100 + 'vw';
-            // Випадковий розмір
-            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
-            // Випадкова швидкість (від 5 до 9 секунд)
-            heart.style.animationDuration = Math.random() * 4 + 5 + 's'; 
-            
-            bg.appendChild(heart);
-            
-            // Видаляємо сердечко, коли воно вилітає за екран
-            setTimeout(() => {
-                heart.remove();
-            }, 9000);
+        /* --- ГОЛОВНА ЛИСТІВКА --- */
+        .premium-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 50px 45px;
+            max-width: 650px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 
+                0 20px 50px rgba(216, 27, 96, 0.08), 
+                0 0 0 10px rgba(255, 255, 255, 0.4) inset,
+                0 0 20px rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 204, 213, 0.5);
+            z-index: 10;
+            margin: 40px 0;
+            position: relative;
         }
 
-        // Створюємо нове сердечко кожні 400 мілісекунд
-        setInterval(createHeart, 400);
-    </script>
+        /* Декоративний елемент зверху */
+        .premium-card::before {
+            content: '☁️';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #fff, #fce4ec);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.15);
+            border: 2px solid #fff;
+        }
 
-</body>
-</html>
+        /* --- ТИПОГРАФІКА --- */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin: 10px 0 5px 0;
+            font-weight: 600;
+        }
+
+        .highlight {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: var(--secondary);
+            display: block;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 128, 171, 0.2);
+        }
+
+        .milestone-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffe4e1, #fff);
+            border: 1px solid #ffb
